@@ -32,7 +32,7 @@ _Replace this line with your site's question and audience, or a short descriptio
 
 ## Live site
 
-[https://your-username.github.io/your-repo-name/](https://4453alice.github.io/Website-Project---College-Town-Home-Sales/)
+https://4453alice.github.io/Website-Project---College-Town-Home-Sales/
 
 ## Data notes
 
