@@ -4,104 +4,119 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Campus Gravity | College-Town Home Prices</title>
-  <meta name="description" content="An interactive dashboard of 35,000+ home sales around 11 US university campuses: how strongly does each campus pull on home prices?">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='5' fill='%2386b6ef'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%2386b6ef' stroke-width='1.5' opacity='.6'/%3E%3Ccircle cx='16' cy='16' r='15' fill='none' stroke='%2386b6ef' stroke-width='1' opacity='.3'/%3E%3C/svg%3E">
+  <meta name="description" content="A data collage of 35,000+ home sales around 11 US university campuses: how strongly does each campus pull on home prices?">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23f4ece1' stroke='%232350d8' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%232350d8'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="leaflet.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-orbits" aria-hidden="true"><span></span><span></span><span></span></div>
-    <p class="eyebrow">College-town home sales &middot; 11 campuses &middot; <span id="hero-count">35,371</span> sales</p>
-    <h1>Campus <em>Gravity</em></h1>
-    <p class="lede">Every university pulls on the homes around it. Some pull hard: prices per square foot climb steeply as you get closer to the quad. Others barely tug at all, and one seems to push. Pick a campus and feel its pull.</p>
+  <header class="masthead">
+    <p class="credit">campus gravity &middot; a field study of <span id="hero-count">35,371</span> home sales</p>
+    <div class="collage" id="collage" role="group" aria-label="Choose a campus"></div>
+    <h1>every campus pulls on the homes around it</h1>
+    <p class="lede">Some pull hard, and homes near the quad cost far more per square foot. Some barely tug. One seems to push. Choose a circle to visit a campus.</p>
   </header>
 
-  <nav class="campus-picker" aria-label="Choose a campus">
-    <div class="picker-inner" id="campus-buttons"></div>
+  <nav class="campus-bar" aria-label="Campus shortcuts">
+    <div class="bar-inner" id="campus-buttons"></div>
   </nav>
 
   <main>
-    <!-- 1. Map + KPI tiles -->
-    <section class="panel map-panel" id="map-section">
-      <div class="panel-head">
-        <h2><span class="num">01</span> The gravity field</h2>
-        <p>Each dot is one sale. Brighter dots cost more per square foot. Rings mark 1, 2, 4 and 8 miles from the campus landmark.</p>
+    <!-- 01 map -->
+    <section class="chapter" id="map-section">
+      <div class="chapter-head">
+        <span class="tag">(01)</span>
+        <h2>the gravity field</h2>
+        <p>Each dot is one sale. Darker dots cost more per square foot. Rings mark 1, 2, 4 and 8 miles from the campus landmark. Click a dot for its story.</p>
       </div>
-      <div class="map-wrap">
-        <div id="map" role="img" aria-label="Map of home sales around the selected campus"></div>
-        <div class="map-legend" id="map-legend"></div>
+      <div class="field">
+        <div class="lens-map">
+          <div id="map" role="img" aria-label="Map of home sales around the selected campus"></div>
+          <div class="zoom">
+            <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+            <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
+          </div>
+        </div>
+        <aside class="field-side">
+          <p class="torn" id="insight"></p>
+          <div class="map-legend" id="map-legend"></div>
+        </aside>
       </div>
       <div class="kpis" id="kpis"></div>
     </section>
 
-    <!-- 2. Gravity curve -->
-    <section class="panel" id="curve-section">
-      <div class="panel-head">
-        <h2><span class="num">02</span> The gravity curve</h2>
-        <p>Median price per square foot by distance from campus. The selected campus is in blue, Illinois in orange for reference, all others in gray. Hover a point for details.</p>
+    <!-- 02 curve -->
+    <section class="chapter" id="curve-section">
+      <div class="chapter-head">
+        <span class="tag">(02)</span>
+        <h2>the gravity curve</h2>
+        <p>Median price per square foot by distance from campus. The selected campus is in blue, Illinois in terracotta for reference, every other campus in sand. Hover a point for details.</p>
       </div>
       <div class="chart" id="curve-chart"></div>
-      <details class="table-toggle"><summary>Show as table</summary><div id="curve-table"></div></details>
+      <details class="table-toggle"><summary>show as table</summary><div id="curve-table"></div></details>
     </section>
 
-    <!-- 3. Leaderboard -->
-    <section class="panel" id="leader-section">
-      <div class="panel-head">
-        <h2><span class="num">03</span> Gravity leaderboard</h2>
-        <p><strong>Campus premium</strong> = median price per sq ft within 1 mile of campus, compared with homes 4 or more miles away. A premium of +50% means close-in homes cost half again as much per square foot.</p>
+    <!-- 03 leaderboard -->
+    <section class="chapter" id="leader-section">
+      <div class="chapter-head">
+        <span class="tag">(03)</span>
+        <h2>who pulls hardest</h2>
+        <p><em>Campus premium</em> compares the median price per sq ft within 1 mile of campus with homes 4 or more miles away. +50% means close-in homes cost half again as much per square foot.</p>
       </div>
       <div class="chart" id="leader-chart"></div>
     </section>
 
-    <!-- 4. Budget simulator -->
-    <section class="panel" id="budget-section">
-      <div class="panel-head">
-        <h2><span class="num">04</span> What can your budget buy?</h2>
-        <p>Set a budget and a minimum number of bedrooms. For each campus we look at the homes that actually sold within your budget and show what a typical one looked like.</p>
+    <!-- 04 budget -->
+    <section class="chapter" id="budget-section">
+      <div class="chapter-head">
+        <span class="tag">(04)</span>
+        <h2>what your budget buys</h2>
+        <p>Set a budget and a minimum number of bedrooms. For each campus we look at the homes that actually sold within your budget and describe a typical one.</p>
       </div>
       <div class="controls">
-        <label>Budget <output id="budget-out">$400,000</output>
+        <label><span class="tag">(budget)</span> <output id="budget-out">$400,000</output>
           <input type="range" id="budget" min="100000" max="1500000" step="25000" value="400000">
         </label>
-        <label>Bedrooms (at least)
+        <label><span class="tag">(bedrooms)</span>
           <select id="beds">
-            <option value="1">1+</option><option value="2">2+</option>
-            <option value="3" selected>3+</option><option value="4">4+</option>
+            <option value="1">1 or more</option><option value="2">2 or more</option>
+            <option value="3" selected>3 or more</option><option value="4">4 or more</option>
           </select>
         </label>
       </div>
       <div class="budget-grid" id="budget-grid"></div>
     </section>
 
-    <!-- 5. Market heat -->
-    <section class="panel" id="heat-section">
-      <div class="panel-head">
-        <h2><span class="num">05</span> How fast do homes go?</h2>
-        <p>Median days on market, from listing to accepted offer, for sales that have both dates. Shorter bars mean a hotter market.</p>
+    <!-- 05 heat -->
+    <section class="chapter" id="heat-section">
+      <div class="chapter-head">
+        <span class="tag">(05)</span>
+        <h2>how fast homes go</h2>
+        <p>Median days on market, from listing to accepted offer, for sales that have both dates. A shorter line means a hotter market.</p>
       </div>
       <div class="chart" id="heat-chart"></div>
     </section>
 
-    <!-- 6. Rules -->
-    <section class="panel rules" id="rules-section">
-      <div class="panel-head">
-        <h2><span class="num">06</span> How the numbers were made</h2>
+    <!-- 06 rules -->
+    <section class="chapter rules" id="rules-section">
+      <div class="chapter-head">
+        <span class="tag">(06)</span>
+        <h2>how the numbers were made</h2>
       </div>
-      <ul id="rules-list"></ul>
+      <ol id="rules-list"></ol>
     </section>
   </main>
 
   <footer>
     <p>Data: College-town home sales dataset, version 1.0 (2026). University of Illinois-Deloitte Foundation Center for Business Emerging Technologies. Data collected March 2026.</p>
-    <p>Map tiles &copy; Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Built with a coding agent; see AGENT_LOG.md in the repository.</p>
+    <p>Aerial imagery and map tiles &copy; Esri, Maxar, Earthstar Geographics, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community. Built with a coding agent; see AGENT_LOG.md in the repository.</p>
   </footer>
 
   <div class="tooltip" id="tooltip" role="status" hidden></div>
-  <div class="loading" id="loading">Loading 35,000 sales&hellip;</div>
+  <div class="loading" id="loading"><em>gathering 35,000 sales&hellip;</em></div>
 
   <script src="leaflet.js"></script>
   <script src="app.js"></script>

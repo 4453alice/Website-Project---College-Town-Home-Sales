@@ -29,3 +29,9 @@ Copy this outline for each entry:
 - **Asked:** "上傳好了" (after uploading the fixed files)
 - **Agent produced:** It checked the live site again. The dashboard now worked, but the map background showed "API KEY REQUIRED" across it, because the CARTO map tiles now need a key on public sites. It switched the map to Esri's free dark gray tiles, which need no key, and updated the credit line in the footer.
 - **Checked or changed:** The agent tested that the Esri tiles load from my site's address before changing the code. I uploaded the two changed files and checked the map.
+
+## 2026-11-17: Redesigned the look as a cream editorial collage
+
+- **Asked:** "我很喜歡整體邏輯架構，不過在設計上面我想要有我自己的想法，以下設計風格是我期望的，是否可以幫我更改介面設計. Use the warm cream editorial collage as the main design direction, and borrow only the restrained image-annotation idea from the documentary reference. Do not combine every visual treatment at once. Preserve the cream background, circular photo crops, and italic serif headlines as the dominant visual identity." (I attached four reference images.)
+- **Agent produced:** A new `style.css`, `index.html` and `app.js` with the same sections and the same numbers. Cream background, italic serif headings (Instrument Serif), and circular aerial photo crops of each campus, arranged like a collage at the top, which also work as the campus picker. The map now sits inside a large circle. From the documentary reference it borrowed only the thin blue annotation box with a label such as "(selected) Illinois" and the (01), (02) numbering. The bar charts became thin lollipop lines with circle ends.
+- **Checked or changed:** The agent checked that the circular photos and new map tiles load from my site's address, and loaded the page in a test browser on desktop and phone sizes. It fixed the map legend labels, which were squeezed together, and text in the budget section that wrapped badly. I uploaded the files and reviewed the design on the live site.
