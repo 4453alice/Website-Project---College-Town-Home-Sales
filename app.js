@@ -697,11 +697,13 @@
       img.data.set([v, v, v - 2, 255], i * 4);
     }
     ctx.putImageData(img, 0, 0);
-    document.getElementById("pixel-noise").style.backgroundImage = `url(${cv.toDataURL()})`;
+    const layer = document.getElementById("pixel-noise");
+    if (layer) layer.style.backgroundImage = `url(${cv.toDataURL()})`;
   }
   pixelNoise();
   function measureTop() {
-    document.documentElement.style.setProperty("--top-h", document.querySelector(".topbar").offsetHeight + "px");
+    const bar = document.querySelector(".topbar");
+    if (bar) document.documentElement.style.setProperty("--top-h", bar.offsetHeight + "px");
   }
   measureTop();
   addEventListener("resize", measureTop);

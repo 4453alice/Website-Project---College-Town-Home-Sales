@@ -47,3 +47,9 @@ Copy this outline for each entry:
 - **Asked:** "1.背景的灰階像素感想要在重一點，更有顆粒感，目前看起來只是純灰色而已，且我希望底部的灰階格子方塊可以在小一些，且整體扁一些。2.圓形地圖我像要其他也能是彩色 3.當我滑到SIX WAYS TO READ THE PULL這部分時，我是否也能保留「Campus Gravity CAMPUSES 11 SALES 35,371 YEARS 2023–26 STATES 11」等這些資料在最頂端……然後這後圓形圖片可以縮小一些，我希望所有資料都不用上下滑動太多"
 - **Agent produced:** A coarse gray pixel noise layer under a stronger fine grain; a bottom pixel band with 8px cells at about half the height; all circular photos in color (the selected campus sharp, the others still in pixel blocks); a sticky header that keeps the title, the four stats and the campus names at the top; smaller collage circles next to the intro text, so the six cards fit on one laptop screen; and a panel navigation bar that sticks just under the header.
 - **Checked or changed:** The agent asked whether "圓形地圖" meant the circular photos or the map inside panel 01, and I confirmed it meant the photos. On the first try the pixel noise looked like TV static, so it lowered its strength. The agent also measures the header's real height in the browser so the panel bar never slides under it.
+
+## 2026-11-17: Guarded against a stale page right after upload
+
+- **Asked:** "上傳完成"
+- **Agent produced:** When it checked the live site, the page first stuck on "LOADING 35,000 SALES" because the browser had kept the old `index.html` while loading the new `app.js`, and the new code crashed looking for an element the old page did not have. A reload fixed it, but to stop this from happening to a visitor after a future upload, the agent added a version number to the style and script links in `index.html` (`?v=4`) and made `app.js` skip those two steps safely if the element is missing.
+- **Checked or changed:** The agent confirmed the live site loads fully after a reload, including the colored pixel circles, the sticky header and the bottom pixel band. I uploaded the two fixed files.
