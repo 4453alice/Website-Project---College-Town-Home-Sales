@@ -13,10 +13,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="pixel-noise" id="pixel-noise" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <header class="masthead">
-    <div class="stats-head">
+  <header class="topbar">
+    <div class="top-inner">
       <h1>Campus Gravity</h1>
       <dl class="headline-stats">
         <div><dt>CAMPUSES</dt><dd>11</dd></div>
@@ -25,13 +26,13 @@
         <div><dt>STATES</dt><dd>11</dd></div>
       </dl>
     </div>
-    <div class="collage" id="collage" role="group" aria-label="Choose a campus"></div>
-    <p class="lede">Every university pulls on the homes around it. Some pull hard, and homes near the quad cost far more per square foot. Some barely tug. One seems to push. Pick a campus, then open a card.</p>
+    <nav class="bar-inner" id="campus-buttons" aria-label="Choose a campus"></nav>
   </header>
 
-  <nav class="campus-bar" aria-label="Choose a campus">
-    <div class="bar-inner" id="campus-buttons"></div>
-  </nav>
+  <section class="opening">
+    <p class="lede">Every university pulls on the homes around it. Some pull hard, and homes near the quad cost far more per square foot. Some barely tug. One seems to push. <span class="mono">Pick a campus, then open a card.</span></p>
+    <div class="collage" id="collage" role="group" aria-label="Choose a campus"></div>
+  </section>
 
   <main id="chapters">
     <!-- index of six cards -->

@@ -130,7 +130,7 @@
     }
     elm.classList.toggle("mono-px", px > 1);
   }
-  // Gray pixel version for every campus except the selected one, which is sharp and in color.
+  // Pixel version for every campus except the selected one, which is sharp.
   function paintLens(elm, ci, size) {
     const c = CAMPUSES[ci];
     aerial(elm, c.lat, c.lon, size, ci === state.campus ? 1 : 4);
@@ -157,7 +157,7 @@
       btn.addEventListener("mousemove", (e) => showTip(`<b>${CAMPUSES[ci].name}</b><br>${fmtN(STATS[ci].n)} sales`, e));
       btn.addEventListener("mouseleave", hideTip);
       box.appendChild(btn);
-      return { ci, btn, base: 74 + 92 * Math.sqrt(STATS[ci].n / maxN), slot: SLOTS[k] };
+      return { ci, btn, base: 48 + 62 * Math.sqrt(STATS[ci].n / maxN), slot: SLOTS[k] };
     });
     annot = document.createElement("div");
     annot.className = "annot";
@@ -170,7 +170,7 @@
   function layoutCollage() {
     const box = document.getElementById("collage");
     const W = box.clientWidth, H = box.clientHeight;
-    const scale = Math.min(1, W / 980);
+    const scale = Math.min(1, W / 760);
     const items = lenses.map((l) => ({ l, d: l.base * scale, x: (l.slot[0] / 100) * W, y: (l.slot[1] / 100) * H }));
     // nudge circles apart until none overlap, keeping them inside the box
     for (let it = 0; it < 300; it++) {
@@ -178,7 +178,7 @@
         for (let b = a + 1; b < items.length; b++) {
           const A = items[a], B = items[b];
           const dx = B.x - A.x, dy = B.y - A.y, dist = Math.hypot(dx, dy) || 1;
-          const min = (A.d + B.d) / 2 + 16;
+          const min = (A.d + B.d) / 2 + 12;
           if (dist < min) {
             const push = (min - dist) / 2, ux = dx / dist, uy = dy / dist;
             A.x -= ux * push; A.y -= uy * push; B.x += ux * push; B.y += uy * push;
@@ -641,7 +641,7 @@
     const cv = document.getElementById("band");
     const W = cv.clientWidth, H = cv.clientHeight;
     if (!W || !H) return;
-    const CELL = 14, z = 15;
+    const CELL = 8, z = 15;
     const cols = Math.ceil(W / CELL), rows = Math.ceil(H / CELL);
     cv.width = cols * CELL; cv.height = rows * CELL;
     const camp = CAMPUSES[state.campus];
@@ -650,7 +650,7 @@
     const latR = (camp.lat * Math.PI) / 180;
     const gy = ((1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2) * n * 256;
     // sample the ground at 1 image pixel per mosaic cell, so the band covers a wide area
-    const spanX = cols * 6, spanY = rows * 6;
+    const spanX = cols * 4, spanY = rows * 4;
     const x0 = gx - spanX / 2, y0 = gy - spanY / 2;
     const small = document.createElement("canvas");
     small.width = cols; small.height = rows;
@@ -686,6 +686,25 @@
       }
     });
   }
+
+  /* ---------------- coarse pixel noise for the background ---------------- */
+  function pixelNoise() {
+    const N = 96, cv = document.createElement("canvas");
+    cv.width = cv.height = N;
+    const ctx = cv.getContext("2d"), img = ctx.createImageData(N, N);
+    for (let i = 0; i < N * N; i++) {
+      const v = 150 + Math.floor(Math.random() * 105);
+      img.data.set([v, v, v - 2, 255], i * 4);
+    }
+    ctx.putImageData(img, 0, 0);
+    document.getElementById("pixel-noise").style.backgroundImage = `url(${cv.toDataURL()})`;
+  }
+  pixelNoise();
+  function measureTop() {
+    document.documentElement.style.setProperty("--top-h", document.querySelector(".topbar").offsetHeight + "px");
+  }
+  measureTop();
+  addEventListener("resize", measureTop);
 
   /* ---------------- boot ---------------- */
   fetch(DATA_URL)
