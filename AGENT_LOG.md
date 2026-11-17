@@ -23,3 +23,9 @@ Copy this outline for each entry:
 - **Asked:** "都上傳好了" (I had uploaded the files through GitHub's "Upload files" page in Safari.)
 - **Agent produced:** It opened the live site, saw that the page loaded with no styling, map or charts, and checked which file addresses existed. Safari had uploaded every file into the top level of the repository, so `assets/app.js`, `assets/style.css`, the Leaflet files and `data/derived/site_points.json` were all missing from the paths the page asked for. It made new versions of `index.html`, `app.js` and `build_site_data.py` that point to the files where they actually are.
 - **Checked or changed:** The agent's upload instructions were wrong for Safari, which does not keep folders when you drag them onto GitHub. I uploaded the three fixed files and checked the live site again.
+
+## 2026-11-17: Replaced the map background
+
+- **Asked:** "上傳好了" (after uploading the fixed files)
+- **Agent produced:** It checked the live site again. The dashboard now worked, but the map background showed "API KEY REQUIRED" across it, because the CARTO map tiles now need a key on public sites. It switched the map to Esri's free dark gray tiles, which need no key, and updated the credit line in the footer.
+- **Checked or changed:** The agent tested that the Esri tiles load from my site's address before changing the code. I uploaded the two changed files and checked the map.

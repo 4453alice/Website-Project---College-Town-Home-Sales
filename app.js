@@ -136,9 +136,18 @@
     map = L.map("map", { preferCanvas: true, zoomControl: true, scrollWheelZoom: false });
     const start = CAMPUSES[state.campus];
     map.fitBounds(L.latLng(start.lat, start.lon).toBounds(4 * MILE_M * 2));
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      subdomains: "abcd", maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    // Esri dark gray basemap: free to use with attribution, no API key needed
+    const esri = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
+    L.tileLayer(esri + "World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+      maxZoom: 16,
+      attribution: "Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors, and the GIS user community",
+    }).addTo(map);
+    // street and place names drawn above the dots
+    map.createPane("labels");
+    map.getPane("labels").style.zIndex = 650;
+    map.getPane("labels").style.pointerEvents = "none";
+    L.tileLayer(esri + "World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+      maxZoom: 16, pane: "labels", opacity: 0.8,
     }).addTo(map);
     map.on("click", () => map.scrollWheelZoom.enable());
     pointLayer = L.layerGroup().addTo(map);
