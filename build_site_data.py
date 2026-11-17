@@ -1,9 +1,9 @@
 """Build the compact data file the Campus Gravity dashboard loads.
 
 Reads:  data/college_town_home_sales.csv   (never modified)
-Writes: data/derived/site_points.json      (one entry per sale kept, plus metadata)
+Writes: site_points.json                    (one entry per sale kept, plus metadata)
 
-Run from the repository root:  python scripts/build_site_data.py
+Run from the repository root:  python build_site_data.py
 
 Cleaning rules (they are also stated on the website):
   1. Price: keep sales from $10,000 to $5,000,000. Below that are non-market transfers or
@@ -29,9 +29,9 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import least_squares
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "data" / "college_town_home_sales.csv"
-OUT_DIR = ROOT / "data" / "derived"
+OUT_DIR = ROOT
 OUT = OUT_DIR / "site_points.json"
 
 PRICE_MIN, PRICE_MAX = 10_000, 5_000_000

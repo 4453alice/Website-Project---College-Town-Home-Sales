@@ -1,11 +1,11 @@
 /* Campus Gravity dashboard.
  * Every number on the page is computed here, in the browser, from
- * data/derived/site_points.json (built by scripts/build_site_data.py).
+ * site_points.json (built by build_site_data.py).
  */
 (() => {
   "use strict";
 
-  const DATA_URL = "data/derived/site_points.json";
+  const DATA_URL = "site_points.json";
   const MILE_M = 1609.344;
   const RINGS = [1, 2, 4, 8];
   // Distance bins for the gravity curve, in miles
